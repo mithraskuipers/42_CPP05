@@ -1,93 +1,91 @@
-#include "Bureaucrat.hpp"
+#include "./../includes/Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat(void): _name("Default"), _grade(150)
+// Default constructor
+// Use of constructor initialization list is required when updating consts in this context
+Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
 {
-	std::cout << "Bureaucrat default constructor called" << std::endl;
-	return ;
+    std::cout << "Bureaucrat default constructor called" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(std::string name): _name(name), _grade(150)
+// Parameterized constructor
+// Use of constructor initialization list is required when updating consts in this context
+Bureaucrat::Bureaucrat(std::string const & name, int grade) : _name(name)
 {
-	std::cout << "Bureaucrat overloaded constructor called with " << this->_name << std::endl;
-	return ;
-}
-
-Bureaucrat::Bureaucrat(std::string name, unsigned int grade): _name(name)
-{
-	if (grade > 150)
-		throw Bureaucrat::GradeTooHighException();
-	else if (grade < 1)
-		throw Bureaucrat::GradeTooLowException();
-	else
-		this->_grade = grade;
-	std::cout << "Bureaucrat overloaded constructor called with " << this->_name << " and grade " << this->_grade << std::endl;
-	return ;
+    // Check if the grade is within the valid range, and throw an exception if not
+    if (grade < 1)
+        throw Bureaucrat::GradeTooHighException();
+    else if (grade > 150)
+        throw Bureaucrat::GradeTooLowException();
+    _grade = grade;
 }
 
 // Copy constructor
-Bureaucrat::Bureaucrat(const Bureaucrat &Source): _name(Source.getName() + "_copy")
+// Use of constructor initialization list is required when updating consts in this context
+Bureaucrat::Bureaucrat(Bureaucrat const & src) : _name(src._name), _grade(src._grade)
 {
-	*this = Source;
-	return ;
 }
 
-// = operator overloading for Bureaucrat class
-Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &Source)
+// Destructor
+Bureaucrat::~Bureaucrat()
 {
-	std::cout << "Bureaucrat = operator overloading for Bureaucrat" << std::endl;
-	*this = Source;
-	return (*this);
+    std::cout << "Bureaucrat deconstructed " << std::endl;
 }
 
-Bureaucrat::~Bureaucrat(void)
+// Name getter
+std::string const & Bureaucrat::getName() const
 {
-	std::cout << "Bureaucrat deconstructed " << std::endl;
-	return ;
-}
-// Getters
-
-std::string	Bureaucrat::getName(void) const
-{
-	return (this->_name);
+    return (_name);
 }
 
-unsigned int	Bureaucrat::getGrade(void) const
+// Grade getter
+int Bureaucrat::getGrade() const
 {
-	return (this->_grade);
+    return (_grade);
 }
 
-// Incrementers
-
-void	Bureaucrat::incrementGrade(void)
+// GradeTooLowException's what() method
+// what() is part of the std::exception class and is used to get a description of the exception.
+// This description is the const char* that is being returned by what()
+// Returns a C-style string literal with exception message
+const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	if (this->getGrade() == 1)
-		throw Bureaucrat::GradeTooLowException();
-	this->_grade--;
-	return ;
+    return ("Grade too high");
 }
 
-void Bureaucrat::decrementGrade(void)
+// GradeTooLowException's what() method
+// what() is part of the std::exception class and is used to get a description of the exception.
+// This description is the const char* that is being returned by what()
+// Returns a C-style string literal with exception message
+const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	if (this->getGrade() == 150)
-		throw Bureaucrat::GradeTooHighException();
-	this->_grade++;
-	return ;
+    return ("Grade too low");
 }
 
-// Throwers
-// TODO
-const char *Bureaucrat::GradeTooHighException::what(void) const throw()
+// Overloaded insertion operator
+std::ostream &operator<<(std::ostream &outputStream, Bureaucrat const &src)
 {
-	return ("Grade too low");
-};
+    outputStream << src.getName() << ", bureaucrat grade " << src.getGrade() << std::endl;
+    return (outputStream);
+}
 
-const char *Bureaucrat::GradeTooLowException::what(void) const throw()
+// Overloaded assignment operator
+// rhs is a common naming convention in CPP.
+// 'this' is the object on the left of the '='
+// 'rhs' is the object on the right of '=' that will be assigned to 'this'
+Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs)
 {
-	return ("Grade too low");
-};
+    if (this != &rhs) {
+        _grade = rhs._grade;
+    }
+    return *this;
+}
 
-std::ostream	&operator<<(std::ostream &o, Bureaucrat *src)
+// Default constructor for GradeTooHighException
+Bureaucrat::GradeTooHighException::GradeTooHighException()
 {
-	o << src->getName() << ", bureaucrat grade " << src->getGrade() << std::endl;
-	return (o);
+}
+
+// Default constructor for GradeTooLowException
+Bureaucrat::GradeTooLowException::GradeTooLowException()
+{
 }
