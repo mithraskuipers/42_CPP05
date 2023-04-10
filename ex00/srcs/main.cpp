@@ -1,5 +1,4 @@
-#include "./../includes/Bureaucrat.hpp"
-#include <iostream>
+#include "./../incs/Bureaucrat.hpp"
 
 int main(void)
 {

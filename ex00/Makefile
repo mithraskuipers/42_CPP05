@@ -1,33 +1,32 @@
-# EXECUTABLE
-NAME		=	cpp05_ex00
+# Executable name
+NAME = cpp05_ex00
 
-# CONFIGURATION
-CC			=	c++
-CFLAGS		=	-Wall -Werror -Wextra -std=c++98
+# Compiler and flags
+CC = c++
+CFLAGS = -Wall -Werror -Wextra -std=c++98
 
-# COLOR CODES
-RESET		=	\033[0m
-GREEN		=	\033[32m
-YELLOW		=	\033[33m
-RED			=	\033[31m
+# Color codes for messages
+RESET = \033[0m
+GREEN = \033[32m
+YELLOW = \033[33m
+RED = \033[31m
 
-# DIRECTORIES
-SRC_DIR		=	srcs/
-OBJ_DIR		=	objs/
-HDR_DIR		=	includes/
+# Directories for source, object, and header files
+SRC_DIR = srcs/
+HDR_DIR = incs/
+OBJ_DIR = objs/
 
-# FILES
-SRC_FILES	=	main.cpp Bureaucrat.cpp
-				
-OBJ_FILES	=	$(SRC_FILES:.cpp=.o)
+# Source, object, and header files
+SRC_FILES = main.cpp Bureaucrat.cpp
+HDR_FILES = Bureaucrat.hpp
+OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
-HDR_FILES	=	Bureaucrat.hpp
+# Paths for source, object, and header files
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
+HDR = $(addprefix $(HDR_DIR), $(HDR_FILES))
+OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
-SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJ			=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))
-HDR			=	$(addprefix $(HDR_DIR), $(HDR_FILES))
-
-# RULES
+# Build rules
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HDR)
@@ -40,21 +39,25 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.cpp $(HDR)
 	@echo "$(YELLOW)Compiling..[$@]$(RESET)"
 	@$(CC) $(CFLAGS) -I $(HDR_DIR) -o $@ -c $<
 
+# Clean rules
 clean:
 	@if [ -d "$(OBJ_DIR)" ]; then \
-	rm -rf $(OBJ_DIR); \
-	echo "$(RED)Deleting all object files..$(RESET)"; else \
-	echo "No object files to delete.."; \
+		rm -rf $(OBJ_DIR); \
+		echo "$(RED)Deleting all object files..$(RESET)"; \
+	else \
+		echo "No object files to delete.."; \
 	fi;
 
 fclean: clean
 	@if [ -f "$(NAME)" ]; then \
-	rm -f $(NAME); \
-	echo "$(RED)Deleting $(NAME)$(RESET)"; else \
-	echo "$(RED)No executable to delete.$(RESET)"; \
+		rm -f $(NAME); \
+		echo "$(RED)Deleting $(NAME)$(RESET)"; \
+	else \
+		echo "$(RED)No executable to delete.$(RESET)"; \
 	fi;
 
+# Rebuild rule
 re: fclean all
 
+# Declare phony targets (targets that do not represent files)
 .PHONY: all clean fclean re
-

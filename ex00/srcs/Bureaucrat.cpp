@@ -1,4 +1,4 @@
-#include "./../includes/Bureaucrat.hpp"
+#include "./../incs/Bureaucrat.hpp"
 
 // Default constructor
 // Use of constructor initialization list is required when updating consts in this context
