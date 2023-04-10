@@ -16,7 +16,8 @@ Bureaucrat::Bureaucrat(std::string const & name, int grade) : _name(name)
         throw Bureaucrat::GradeTooHighException();
     else if (grade > 150)
         throw Bureaucrat::GradeTooLowException();
-    _grade = grade;
+    else
+        _grade = grade;
 }
 
 // Copy constructor
