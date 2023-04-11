@@ -4,8 +4,9 @@ int main(void)
 {
     try {
         // Stack
-        Bureaucrat Bas("Bas", 10);
+        Bureaucrat Bas("Bas", 149);
         std::cout << Bas << std::endl;
+        Bas.decrementGrade();
 
     } catch (std::exception const & e) {
         std::cout << e.what() << std::endl;

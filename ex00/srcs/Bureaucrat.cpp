@@ -11,6 +11,7 @@ Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
 // Use of constructor initialization list is required when updating consts in this context
 Bureaucrat::Bureaucrat(std::string const & name, int grade) : _name(name)
 {
+    std::cout << "Bureaucrat with parameterized constructor called" << std::endl;
     // Check if the grade is within the valid range, and throw an exception if not
     if (grade < 1)
         throw Bureaucrat::GradeTooHighException();
@@ -24,21 +25,24 @@ Bureaucrat::Bureaucrat(std::string const & name, int grade) : _name(name)
 // Use of constructor initialization list is required when updating consts in this context
 Bureaucrat::Bureaucrat(Bureaucrat const & src) : _name(src._name), _grade(src._grade)
 {
+    std::cout << "Bureaucrat copy constructor called" << std::endl;
 }
 
 // Destructor
 Bureaucrat::~Bureaucrat()
 {
-    std::cout << "Bureaucrat deconstructed " << std::endl;
+    std::cout << "Bureaucrat destructor called" << std::endl;
 }
 
 // Name getter
-std::string const & Bureaucrat::getName() const
+// Returns a const reference
+std::string const& Bureaucrat::getName() const
 {
     return (_name);
 }
 
 // Grade getter
+// Returns an int
 int Bureaucrat::getGrade() const
 {
     return (_grade);
@@ -65,7 +69,7 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 // Overloaded insertion operator
 std::ostream &operator<<(std::ostream &outputStream, Bureaucrat const &src)
 {
-    outputStream << src.getName() << ", bureaucrat grade " << src.getGrade() << std::endl;
+    outputStream << src.getName() << ", bureaucrat grade " << src.getGrade();
     return (outputStream);
 }
 
@@ -89,4 +93,32 @@ Bureaucrat::GradeTooHighException::GradeTooHighException()
 // Default constructor for GradeTooLowException
 Bureaucrat::GradeTooLowException::GradeTooLowException()
 {
+}
+
+// Increment grade
+void Bureaucrat::incrementGrade()
+{
+    std::cout << "[grade] Attempting to increment grade of " << this->_name << ". Its grade is currently " << this->_grade << "." << std::endl;
+    int grade = this->_grade;
+    if (grade <= 1)
+    {
+        std::cout << "[grade] Failed to increment grade of " << this->_name << ". Its grade remains " << this->_grade << "." << std::endl;
+        return ;
+    }
+    this->_grade = grade + -1;
+    std::cout << "[grade] Succesfully incremented grade of " << this->_name << ". Its grade is now " << this->_grade << "." << std::endl;
+}
+
+// Decrement grade
+void Bureaucrat::decrementGrade()
+{
+    std::cout << "[grade] Attempting to decrement grade of " << this->_name << ". Its grade is currently " << this->_grade << "." << std::endl;
+    int grade = this->_grade;
+    if (grade >= 150)
+    {
+        std::cout << "[grade] Failed to decrement grade of " << this->_name << ". Its grade remains " << this->_grade << "." << std::endl;
+        return ;
+    }
+    this->_grade = grade + 1;
+    std::cout << "[grade] Succesfully decremented grade of " << this->_name << ". Its grade is now " << this->_grade << "." << std::endl;
 }
