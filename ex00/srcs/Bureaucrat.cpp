@@ -69,7 +69,7 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 // Overloaded insertion operator
 std::ostream &operator<<(std::ostream &outputStream, Bureaucrat const &src)
 {
-    outputStream << src.getName() << ", bureaucrat grade " << src.getGrade();
+    outputStream << "[" << src.getName() << "]" << "[grade] Its grade is currently " << src.getGrade();
     return (outputStream);
 }
 
