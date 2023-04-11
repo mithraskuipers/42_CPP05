@@ -98,27 +98,26 @@ Bureaucrat::GradeTooLowException::GradeTooLowException()
 // Increment grade
 void Bureaucrat::incrementGrade()
 {
-    std::cout << "[grade] Attempting to increment grade of " << this->_name << ". Its grade is currently " << this->_grade << "." << std::endl;
+        std::cout << "[" << this->_name << "]" << "[grade] Attempting to increment grade. Its grade is currently " << this->_grade << "." << std::endl;
     int grade = this->_grade;
     if (grade <= 1)
     {
-        std::cout << "[grade] Failed to increment grade of " << this->_name << ". Its grade remains " << this->_grade << "." << std::endl;
+        std::cout << "[" << this->_name << "]" << "[grade] Failed to increment grade. Its grade remains " << this->_grade << "." << std::endl;
         return ;
     }
     this->_grade = grade + -1;
-    std::cout << "[grade] Succesfully incremented grade of " << this->_name << ". Its grade is now " << this->_grade << "." << std::endl;
+        std::cout << "[" << this->_name << "]" << "[grade] Succesfully incremented grade. Its grade is now " << this->_grade << "." << std::endl;
 }
-
 // Decrement grade
 void Bureaucrat::decrementGrade()
 {
-    std::cout << "[grade] Attempting to decrement grade of " << this->_name << ". Its grade is currently " << this->_grade << "." << std::endl;
+        std::cout << "[" << this->_name << "]" << "[grade] Attempting to decrement grade. Its grade is currently " << this->_grade << "." << std::endl;
     int grade = this->_grade;
     if (grade >= 150)
     {
-        std::cout << "[grade] Failed to decrement grade of " << this->_name << ". Its grade remains " << this->_grade << "." << std::endl;
+        std::cout << "[" << this->_name << "]" << "[grade] Failed to decrement grade. Its grade remains " << this->_grade << "." << std::endl;
         return ;
     }
     this->_grade = grade + 1;
-    std::cout << "[grade] Succesfully decremented grade of " << this->_name << ". Its grade is now " << this->_grade << "." << std::endl;
+        std::cout << "[" << this->_name << "]" << "[grade] Succesfully decremented grade. Its grade is now " << this->_grade << "." << std::endl;
 }
