@@ -7,9 +7,14 @@
 class Form
 {
     public:
-        Form::Form();
-        Form::~Form();
-        Form::Form(bool _isSigned, int _requiredGradeSigning, int _requiredGradeExecuting);
+        Form();
+        Form(bool _isSigned, int _requiredGradeSigning, int _requiredGradeExecuting);
+        ~Form();
+        Form(const Form &orig);
+        const std::string getName(void) const;
+        bool getIsSigned();
+        int getRequiredGradeSigning();
+        int getRequiredGradeExecuting();
     private:
         std::string _name;
         int         _isSigned;

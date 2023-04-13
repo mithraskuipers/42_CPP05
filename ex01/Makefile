@@ -17,7 +17,7 @@ HDR_DIR = incs/
 OBJ_DIR = objs/
 
 # Source, object, and header files
-SRC_FILES = main.cpp Bureaucrat.cpp
+SRC_FILES = main.cpp Bureaucrat.cpp Form.cpp
 HDR_FILES = Bureaucrat.hpp Form.hpp
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 

@@ -2,35 +2,64 @@
 
 // Default constructor
 // Use of constructor initialization list is required when setting consts in this context
-Form::Form() : _name("Default"), _isSigned(false), _requiredGradeSigning(150), _requiredGradeExecuting(150)
+Form::Form(void) : _name("Default"), _isSigned(false), _requiredGradeSigning(150), _requiredGradeExecuting(150)
 {
     std::cout << "Form parameterized constructor called" << std::endl;
 }
 
-
-
-
-
 // Parameterized constructor
 // Use of constructor initialization list is required when updating consts in this context
-Form::Form(int _requiredGradeSigning, int _requiredGradeExecuting);
+Form::Form(bool _isSigned, int _requiredGradeSigning, int _requiredGradeExecuting) : _name("Default"), _isSigned(false), _requiredGradeSigning(150), _requiredGradeExecuting(150)
 {
-    std::cout << "Form with parameterized constructor called" << std::endl;
-    // Check if the grade is within the valid range, and throw an exception if not
-    if (grade < 1)
-        throw Form::GradeTooHighException();
-    else if (grade > 150)
-        throw Form::GradeTooLowException();
-    else
-        _grade = grade;
+    std::cout << "Form parameterized constructor called" << std::endl;
 }
 
+// TODO: Maak getter functions: getName, getIsSigned, getRequiredGradeSigning, getRequiredGradeExecuting
+
+const std::string	Form::getName(void) const
+{
+	return (this->_name);
+}
+
+// Form::getName();
+// Form::getIsSigned();
+// Form::getRequiredGradeSigning();
+// Form::getRequiredGradeExecuting();
+
+
 // Copy constructor
-// Use of constructor initialization list is required when updating consts in this context
-Form::Form(Form const & src) : _name(src._name), _grade(src._grade)
+Form::Form(const Form &orig): _name(orig.getName(), _isSigned(orig.getIsSigned()), _requiredGradeSigning(orig.getRequiredGradeSigning()), _requiredGradeExecuting(orig.getRequiredGradeExecuting()))
 {
     std::cout << "Form copy constructor called" << std::endl;
+    std::cout << "Copied " << orig.getName() << " into " << this->_name << std::endl;
+    *this = orig;
 }
+
+
+Form::Form(const Form &src): _name(src.getName() + "_copy"), _is_signed(false), _sign_grade(src.getSignGrade()), _exec_grade(src.getExecGrade())
+{
+	std::cout << "Form Copy Constructor called to copy " << src.getName() <<
+	" into " << this->getName() << std::endl;
+	*this = src;
+}
+
+
+
+Form::Form(int sign_grade, int exec_grade): _name("default"), _is_signed(false), _sign_grade(sign_grade), _exec_grade(exec_grade)
+{
+	std::cout << "Form Constructor called for " << this->getName() <<
+	" with sign-grade of " << sign_grade << " and execution-grade of " << exec_grade <<
+	std::endl;
+	const int i = this->getSignGrade();
+	const int j = this->getExecGrade();
+	if (i > 150 || j > 150)
+		throw(Form::GradeTooLowException());
+	else if( i < 1 || j < 1)
+		throw(Form::GradeTooHighException());
+}
+
+
+
 
 // Destructor
 Form::~Form()
@@ -38,19 +67,7 @@ Form::~Form()
     std::cout << "Form destructor called" << std::endl;
 }
 
-// Name getter
-// Returns a const reference
-std::string const& Form::getName() const
-{
-    return (_name);
-}
 
-// Grade getter
-// Returns an int
-int Form::getGrade() const
-{
-    return (_grade);
-}
 
 // GradeTooLowException's what() method
 // what() is part of the std::exception class and is used to get a description of the exception.
