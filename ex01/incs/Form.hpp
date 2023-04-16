@@ -7,10 +7,10 @@
 class Form
 {
     public:
-        Form();
-        Form(bool _isSigned, int _requiredGradeSigning, int _requiredGradeExecuting);
-        ~Form();
-        Form(const Form &orig);
+        Form(void); // CONSTRUCTOR
+        Form(const Form &orig); // COPY CONSTRUCTOR
+        Form(int _requiredGradeSigning, int _requiredGradeExecuting); // PARAMETERIZED CONSTRUCTOR
+        ~Form(); // DESTRUCTOR
         const std::string getName(void) const;
         bool getIsSigned();
         int getRequiredGradeSigning();

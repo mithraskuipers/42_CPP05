@@ -1,25 +1,43 @@
 #include "./../incs/Form.hpp"
 
-// Default constructor
+
+std::string Form::getName(void) const
+{
+	return (this->_name);
+}
+
+int Form::getIsSigned(void) const
+{
+	return (this->_isSigned);
+}
+
+// CONSTRUCTOR
 // Use of constructor initialization list is required when setting consts in this context
 Form::Form(void) : _name("Default"), _isSigned(false), _requiredGradeSigning(150), _requiredGradeExecuting(150)
 {
     std::cout << "Form parameterized constructor called" << std::endl;
 }
 
-// Parameterized constructor
+// COPY CONSTRUCTOR
+Form::Form(const Form &orig): _name(orig.getName(), _isSigned(orig.getIsSigned()), _requiredGradeSigning(orig.getRequiredGradeSigning()), _requiredGradeExecuting(orig.getRequiredGradeExecuting()))
+{
+    std::cout << "Form copy constructor called" << std::endl;
+    std::cout << "Copied " << orig.getName() << " into " << this->_name << std::endl;
+    *this = orig;
+}
+
+// PARAMETERIZED CONSTRUCTOR
 // Use of constructor initialization list is required when updating consts in this context
 Form::Form(bool _isSigned, int _requiredGradeSigning, int _requiredGradeExecuting) : _name("Default"), _isSigned(false), _requiredGradeSigning(150), _requiredGradeExecuting(150)
 {
     std::cout << "Form parameterized constructor called" << std::endl;
+    (void)_isSigned;
+    (void)_requiredGradeSigning;
+    (void)_requiredGradeExecuting;
 }
 
 // TODO: Maak getter functions: getName, getIsSigned, getRequiredGradeSigning, getRequiredGradeExecuting
 
-const std::string	Form::getName(void) const
-{
-	return (this->_name);
-}
 
 // Form::getName();
 // Form::getIsSigned();
@@ -27,13 +45,7 @@ const std::string	Form::getName(void) const
 // Form::getRequiredGradeExecuting();
 
 
-// Copy constructor
-Form::Form(const Form &orig): _name(orig.getName(), _isSigned(orig.getIsSigned()), _requiredGradeSigning(orig.getRequiredGradeSigning()), _requiredGradeExecuting(orig.getRequiredGradeExecuting()))
-{
-    std::cout << "Form copy constructor called" << std::endl;
-    std::cout << "Copied " << orig.getName() << " into " << this->_name << std::endl;
-    *this = orig;
-}
+
 
 
 Form::Form(const Form &src): _name(src.getName() + "_copy"), _is_signed(false), _sign_grade(src.getSignGrade()), _exec_grade(src.getExecGrade())
