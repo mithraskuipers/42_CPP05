@@ -7,6 +7,9 @@ Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
     std::cout << "Bureaucrat default constructor called" << std::endl;
 }
 
+
+
+
 // Parameterized constructor
 // Use of constructor initialization list is required when updating consts in this context
 Bureaucrat::Bureaucrat(std::string const & name, int grade) : _name(name)

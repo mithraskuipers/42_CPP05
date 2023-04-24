@@ -4,7 +4,7 @@ int main(void)
 {
     try {
         // Stack
-        Bureaucrat Bas("Bas", 51);
+        Bureaucrat Bas("Bas", 50);
         Form Contract("werk", 50, 50);
         // std::cout << Bas << std::endl;
         // Bas.decrementGrade();

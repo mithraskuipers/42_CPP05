@@ -22,6 +22,7 @@ class Form
         bool getIsSigned() const;
         int getSignGrade() const;
         int getExecGrade() const;
+        virtual void execute(Bureaucrat const &executor)const = 0;
         class       GradeTooHighException;
         class       GradeTooLowException;
         class       FormNotSignedException;
@@ -50,11 +51,10 @@ class Form::GradeTooLowException : public std::exception
         const char *what() const throw(); 				// what() method declared as const so it will not modify member vars in the GradeTooLowException object.
 };
 
-class Form::FormNotSignedException : public std::exception
-{
-    public:
-       // FormNotSignedException();			  				// Default constructor
-        const char *what() const throw(); 				// what() method declared as const so it will not modify member vars in the GradeTooLowException object.
-};
+class FormNotSignedException : public std::exception
+	{
+	public:
+		virtual const char *what() const throw();
+	};
 
 #endif

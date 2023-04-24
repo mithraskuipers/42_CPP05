@@ -44,6 +44,7 @@ Form::Form(void) : _name("Default"), _isSigned(false), _requiredGradeSigning(150
     std::cout << "Form parameterized constructor called" << std::endl;
 }
 
+
 // COPY CONSTRUCTOR
 Form::Form(const Form &src): _name(src.getName() + "_copy"), _isSigned(false), _requiredGradeSigning(src.getSignGrade()), _requiredGradeExecuting(src.getExecGrade())
 {
@@ -113,8 +114,6 @@ Form& Form::operator=(const Form& rhs)
     }
     return *this;
 }
-
-
 
 // Default constructor for GradeTooHighException
 Form::GradeTooHighException::GradeTooHighException()
