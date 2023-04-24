@@ -1,4 +1,4 @@
-#ifndef BUREAUCRAT_HPP
+residentialPardonForm: Required grades:#ifndef BUREAUCRAT_HPP
 #define BUREAUCRAT_HPP
 
 #include <iostream>
@@ -20,8 +20,10 @@ class Bureaucrat
         void incrementGrade();
         void decrementGrade();
         void signForm(Form &form);
+        void executeForm(Form const & form);
         class GradeTooHighException; 					// GradeTooHighException nested class declaration
         class GradeTooLowException;	 					// GradeTooLowException nested class declaration
+        class executeFormException;
     private:
         std::string const _name;						// Name of the Bureaucrat
         int _grade;										// Grade of the Bureaucrat
@@ -42,6 +44,13 @@ class Bureaucrat::GradeTooLowException : public std::exception
 {
     public:
         GradeTooLowException();			  				// Default constructor
+        const char *what() const throw(); 				// what() method declared as const so it will not modify member vars in the GradeTooLowException object.
+};
+
+class Bureaucrat::executeFormException : public std::exception
+{
+    public:
+       // GradeTooLowException();			  				// Default constructor
         const char *what() const throw(); 				// what() method declared as const so it will not modify member vars in the GradeTooLowException object.
 };
 

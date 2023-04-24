@@ -7,14 +7,21 @@ Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
     std::cout << "Bureaucrat default constructor called" << std::endl;
 }
 
-
 void    Bureaucrat::signForm(Form &form)
 {
     form.beSigned(*this);
 }
 
-
-
+void Bureaucrat::executeForm(Form const &form)
+{
+    // if (form.getSigned() == false)
+    //     throw Bureaucrat::executeFormException();
+    // else if (form.getExecGrade() < this->_grade)
+    //     throw Bureaucrat::executeFormException();
+    // else
+    //     std::cout << "[" << this->_name << "]" << "[grade] Successfully executed form " << form.getName() << "." << std::endl;
+    form.execute(*this);
+}
 // Parameterized constructor
 // Use of constructor initialization list is required when updating consts in this context
 Bureaucrat::Bureaucrat(std::string const & name, int grade) : _name(name)
@@ -72,6 +79,11 @@ const char* Bureaucrat::GradeTooHighException::what() const throw()
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
     return ("Grade too low");
+}
+
+const char* Bureaucrat::executeFormException::what() const throw()
+{
+    return ("Cant execute form");
 }
 
 // Overloaded insertion operator

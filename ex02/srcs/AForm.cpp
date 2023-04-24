@@ -10,13 +10,10 @@ bool Form::getIsSigned() const
 	return (this->_isSigned);
 }
 
-
-
 int Form::getSignGrade() const
 {
     return(this->_requiredGradeSigning);
 }
-
 
 int Form::getExecGrade() const
 {
@@ -53,7 +50,6 @@ Form::Form(const Form &src): _name(src.getName() + "_copy"), _isSigned(false), _
 	*this = src;
 }
 
-
 // PARAMETERIZED CONSTRUCTOR
 // Use of constructor initialization list is required when updating consts in this context
 Form::Form(std::string name, int requiredGradeSigning, int requiredGradeExecuting) : _name(name), _isSigned(false), _requiredGradeSigning(requiredGradeSigning), _requiredGradeExecuting(requiredGradeExecuting)
@@ -70,8 +66,6 @@ Form::~Form()
 {
     std::cout << "Form destructor called" << std::endl;
 }
-
-
 
 // GradeTooLowException's what() method
 // what() is part of the std::exception class and is used to get a description of the exception.
