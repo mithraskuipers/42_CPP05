@@ -13,7 +13,7 @@ class Form
 {
     public:
         Form(void); // CONSTRUCTOR
-        Form(const std::string name, int requiredGradeSigning, int requiredGradeExecuting);
+        Form(const std::string name, int reqSignGrade, int reqExeGrade);
         Form(const Form &orig); // COPY CONSTRUCTOR
         Form& operator=(const Form&);
         ~Form(); // DESTRUCTOR
@@ -28,8 +28,8 @@ class Form
     private:
         std::string _name;
         int         _isSigned;
-        int const   _requiredGradeSigning;
-        int const   _requiredGradeExecuting;
+        int const   _reqSignGrade;
+        int const   _reqExeGrade;
 };
 
 // Custom exception class is derived from the standard std::exception class.

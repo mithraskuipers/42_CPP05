@@ -7,12 +7,12 @@ Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
     std::cout << "Bureaucrat default constructor called" << std::endl;
 }
 
-void    Bureaucrat::signForm(Form &form)
+void    Bureaucrat::signForm(AForm &form)
 {
     form.beSigned(*this);
 }
 
-void Bureaucrat::executeForm(Form const &form)
+void Bureaucrat::executeForm(AForm const &form)
 {
     // if (form.getSigned() == false)
     //     throw Bureaucrat::executeFormException();

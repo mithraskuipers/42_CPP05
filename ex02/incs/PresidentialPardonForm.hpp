@@ -4,7 +4,7 @@
 class Bureaucrat;
 class Form;
 
-class PresidentialPardonForm: public Form
+class PresidentialPardonForm: public AForm
 {
     public:
         PresidentialPardonForm();
@@ -16,4 +16,4 @@ class PresidentialPardonForm: public Form
         std::string getTarget() const;
     private:
         std::string _target;
-}
+};

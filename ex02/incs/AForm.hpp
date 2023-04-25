@@ -1,5 +1,5 @@
-#ifndef FORM_HPP
-#define FORM_HPP
+#ifndef AForm_HPP
+#define AForm_HPP
 
 #include "Bureaucrat.hpp"
 
@@ -8,14 +8,16 @@
 
 class Bureaucrat;
 
-class Form
+
+
+class AForm
 {
     public:
-        Form(void); // CONSTRUCTOR
-        Form(const std::string name, int requiredGradeSigning, int requiredGradeExecuting);
-        Form(const Form &orig); // COPY CONSTRUCTOR
-        Form& operator=(const Form&);
-        ~Form(); // DESTRUCTOR
+        AForm(void); // CONSTRUCTOR
+        AForm(const std::string name, int reqSignGrade, int reqExeGrade);
+        AForm(const AForm &orig); // COPY CONSTRUCTOR
+        AForm& operator=(const AForm&);
+        ~AForm(); // DESTRUCTOR
         void beSigned(Bureaucrat &signee);
         const std::string getName() const;
         bool getIsSigned() const;
@@ -24,17 +26,17 @@ class Form
         virtual void execute(Bureaucrat const &executor)const = 0;
         class       GradeTooHighException;
         class       GradeTooLowException;
-        class       FormNotSignedException;
+        class       AFormNotSignedException;
     private:
         std::string _name;
         int         _isSigned;
-        int const   _requiredGradeSigning;
-        int const   _requiredGradeExecuting;
+        int const   _reqSignGrade;
+        int const   _reqExeGrade;
 };
 
 // Custom exception class is derived from the standard std::exception class.
-// Used to get more specific information about the type of error that occurred.
-class Form::GradeTooHighException : public std::exception
+// Used to get more specific inAFormation about the type of error that occurred.
+class AForm::GradeTooHighException : public std::exception
 {
     public:
         GradeTooHighException();		  				// Default constructor
@@ -42,18 +44,18 @@ class Form::GradeTooHighException : public std::exception
 };
 
 // Custom exception class is derived from the standard std::exception class.
-// Used to get more specific information about the type of error that occurred.
-class Form::GradeTooLowException : public std::exception
+// Used to get more specific inAFormation about the type of error that occurred.
+class AForm::GradeTooLowException : public std::exception
 {
     public:
         GradeTooLowException();			  				// Default constructor
         const char *what() const throw(); 				// what() method declared as const so it will not modify member vars in the GradeTooLowException object.
 };
 
-class FormNotSignedException : public std::exception
-	{
-	public:
-		virtual const char *what() const throw();
-	};
+class AFormNotSignedException : public std::exception
+{
+    public:
+        virtual const char *what() const throw();
+};
 
 #endif

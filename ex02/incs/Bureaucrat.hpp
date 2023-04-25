@@ -1,11 +1,11 @@
-residentialPardonForm: Required grades:#ifndef BUREAUCRAT_HPP
+#ifndef BUREAUCRAT_HPP
 #define BUREAUCRAT_HPP
 
 #include <iostream>
 #include <exception>
-#include "Form.hpp"
+#include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -19,8 +19,8 @@ class Bureaucrat
         int getGrade() const;							// Getter function for grade_. const so that it won't chage member variables of Bureaucrat object 
         void incrementGrade();
         void decrementGrade();
-        void signForm(Form &form);
-        void executeForm(Form const & form);
+        void signForm(AForm &form);
+        void executeForm(AForm const & form);
         class GradeTooHighException; 					// GradeTooHighException nested class declaration
         class GradeTooLowException;	 					// GradeTooLowException nested class declaration
         class executeFormException;
