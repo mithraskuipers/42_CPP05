@@ -1,29 +1,70 @@
 #include "./../incs/Bureaucrat.hpp"
 #include "./../incs/AForm.hpp"
 #include "./../incs/PresidentialPardonForm.hpp"
-
-class AForm;
-class Bureaucrat;
+#include "./../incs/ShrubberyCreationForm.hpp"
+#include "./../incs/RobotomyRequestForm.hpp"
 
 int main(void)
 {
+	std::cout << "Shrubbery" << std::endl;
     try {
-        // Stack
-        Bureaucrat Bas("Bas", 50);
-        // The following is not allowed anymore because AForm is an abstract class.
-        // It is an abstract class because it has a pure virtual function "execute()"
-        
-        PresidentialPardonForm Contract("test target name");
-
-        // std::cout << Bas << std::endl;
-        // Bas.decrementGrade();
-        // Bas.decrementGrade();
-        // Bas.incrementGrade();
-        // Bas.incrementGrade();
+        Bureaucrat Bas("Bas", 51);
+        ShrubberyCreationForm Contract("tree");
         Contract.beSigned(Bas);
        
     } catch (std::exception const & e) {
         std::cout << e.what() << std::endl;
     }
+	std::cout << "---------------------------------" <<std::endl;
+	    try {
+        Bureaucrat Bas("Bas", 3);
+        ShrubberyCreationForm Contract("tree");
+        Contract.beSigned(Bas);
+		Contract.execute(Bas);
+       
+    } catch (std::exception const & e) {
+        std::cout << e.what() << std::endl;
+    }
+	std::cout << std::endl;
+	std::cout << "Presidential" << std::endl;
+    try {
+        Bureaucrat Bas("Bas", 51);
+        PresidentialPardonForm Contract("Bas");
+        Contract.beSigned(Bas);
+       
+    } catch (std::exception const & e) {
+        std::cout << e.what() << std::endl;
+    }
+	std::cout << "---------------------------------" <<std::endl;
+	    try {
+        Bureaucrat Bas("Bas", 60);
+        PresidentialPardonForm Contract("Bas");
+        Contract.beSigned(Bas);
+		Contract.execute(Bas);
+       
+    } catch (std::exception const & e) {
+        std::cout << e.what() << std::endl;
+    }
+	std::cout << std::endl;
+	std::cout << "Robotomy" << std::endl;
+    try {
+        Bureaucrat Bas("Bas", 51);
+        RobotomyRequestForm Contract("Happy person");
+        Contract.beSigned(Bas);
+       
+    } catch (std::exception const & e) {
+        std::cout << e.what() << std::endl;
+    }
+	std::cout << "---------------------------------" <<std::endl;
+	    try {
+        Bureaucrat Bas("Bas", 3);
+        RobotomyRequestForm Contract("Happy person");
+        Contract.beSigned(Bas);
+		Contract.execute(Bas);
+       
+    } catch (std::exception const & e) {
+        std::cout << e.what() << std::endl;
+    }
+
     return 0;
 }

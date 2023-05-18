@@ -10,10 +10,13 @@ bool AForm::getIsSigned() const
 	return (this->_isSigned);
 }
 
+
+
 int AForm::getSignGrade() const
 {
     return(this->_reqSignGrade);
 }
+
 
 int AForm::getExecGrade() const
 {
@@ -25,7 +28,7 @@ void AForm::beSigned(Bureaucrat &signee)
 {
     if (signee.getGrade() > this->getSignGrade())
     {
-        throw AForm::AFormNotSignedException();
+        throw AForm::FormNotSignedException();
     }
     else if (signee.getGrade() <= this->getSignGrade()) // MAG WEL
     {
@@ -49,6 +52,7 @@ AForm::AForm(const AForm &src): _name(src.getName() + "_copy"), _isSigned(false)
 	*this = src;
 }
 
+
 // PARAMETERIZED CONSTRUCTOR
 // Use of constructor initialization list is required when updating consts in this context
 AForm::AForm(std::string name, int reqSignGrade, int reqExeGrade) : _name(name), _isSigned(false), _reqSignGrade(reqSignGrade), _reqExeGrade(reqExeGrade)
@@ -65,6 +69,8 @@ AForm::~AForm()
 {
     std::cout << "AForm destructor called" << std::endl;
 }
+
+
 
 // GradeTooLowException's what() method
 // what() is part of the std::exception class and is used to get a description of the exception.
@@ -84,7 +90,7 @@ const char* AForm::GradeTooLowException::what() const throw()
     return ("Grade too low");
 }
 
-const char* AForm::AFormNotSignedException::what() const throw()
+const char* AForm::FormNotSignedException::what() const throw()
 {
     return ("AForm not signed exception!");
 }
@@ -107,6 +113,8 @@ AForm& AForm::operator=(const AForm& rhs)
     }
     return *this;
 }
+
+
 
 // Default constructor for GradeTooHighException
 AForm::GradeTooHighException::GradeTooHighException()

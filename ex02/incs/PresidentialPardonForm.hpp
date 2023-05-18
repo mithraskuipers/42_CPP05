@@ -2,18 +2,18 @@
 #include "./../incs/Bureaucrat.hpp"
 
 class Bureaucrat;
-class Form;
+class AForm;
 
 class PresidentialPardonForm: public AForm
 {
     public:
         PresidentialPardonForm();
-        PresidentialPardonForm(PresidentialPardonForm const &src);	// Copy constructor
         PresidentialPardonForm(std::string targetName);
+        PresidentialPardonForm(PresidentialPardonForm const &orig);	// Copy constructor
         PresidentialPardonForm &operator=(const PresidentialPardonForm &rhs);	// Assignment operator overloading
         ~PresidentialPardonForm();
         virtual void execute(Bureaucrat const &executor)const;
-        std::string getTarget() const;
+        std::string getTarget(void) const;
     private:
         std::string _target;
 };
