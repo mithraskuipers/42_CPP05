@@ -1,4 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   Form.cpp                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/06/10 20:26:32 by mikuiper      #+#    #+#                 */
+/*   Updated: 2023/06/10 20:26:33 by mikuiper      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./../incs/Form.hpp"
+
+/*
+################################################################################
+Orthodox canonical form
+################################################################################
+*/
+
+// Use of constructor initialization list is required when setting consts in this context
+Form::Form(void) : _name("Default"), _isSigned(false), _reqSignGrade(150), _reqExeGrade(150)
+{
+    std::cout << "Form constructor called" << std::endl;
+}
+
+Form::Form(const Form &src): _name(src.getName() + "_copy"), _isSigned(false), _reqSignGrade(src.getSignGrade()), _reqExeGrade(src.getExecGrade())
+{
+	std::cout << "Form copy Constructor called to copy " << src.getName() <<
+	" into " << this->getName() << std::endl;
+	*this = src;
+}
+
+// Use of constructor initialization list is required when updating consts in this context
+Form::Form(std::string name, int reqSignGrade, int reqExeGrade) : _name(name), _isSigned(false), _reqSignGrade(reqSignGrade), _reqExeGrade(reqExeGrade)
+{
+    std::cout << "Form with parameterized constructor called" << std::endl;
+    (void)_isSigned;
+    (void)_reqSignGrade;
+    (void)_reqExeGrade;
+}
+
+Form::~Form()
+{
+    std::cout << "Form destructor called" << std::endl;
+}
+
+/*
+################################################################################
+Public member functions
+################################################################################
+*/
 
 const std::string Form::getName() const
 {
@@ -10,19 +61,15 @@ bool Form::getIsSigned() const
 	return (this->_isSigned);
 }
 
-
-
 int Form::getSignGrade() const
 {
     return(this->_reqSignGrade);
 }
 
-
 int Form::getExecGrade() const
 {
     return (this->_reqExeGrade);
 }
-
 
 void Form::beSigned(Bureaucrat &signee)
 {
@@ -37,48 +84,13 @@ void Form::beSigned(Bureaucrat &signee)
     }
 }
 
-// CONSTRUCTOR
-// Use of constructor initialization list is required when setting consts in this context
-Form::Form(void) : _name("Default"), _isSigned(false), _reqSignGrade(150), _reqExeGrade(150)
-{
-    std::cout << "Form parameterized constructor called" << std::endl;
-}
-
-// COPY CONSTRUCTOR
-Form::Form(const Form &src): _name(src.getName() + "_copy"), _isSigned(false), _reqSignGrade(src.getSignGrade()), _reqExeGrade(src.getExecGrade())
-{
-	std::cout << "Form Copy Constructor called to copy " << src.getName() <<
-	" into " << this->getName() << std::endl;
-	*this = src;
-}
-
-
-// PARAMETERIZED CONSTRUCTOR
-// Use of constructor initialization list is required when updating consts in this context
-Form::Form(std::string name, int reqSignGrade, int reqExeGrade) : _name(name), _isSigned(false), _reqSignGrade(reqSignGrade), _reqExeGrade(reqExeGrade)
-{
-    std::cout << "Form parameterized constructor called" << std::endl;
-    (void)_isSigned;
-    (void)_reqSignGrade;
-    (void)_reqExeGrade;
-}
-
-
-// Destructor
-Form::~Form()
-{
-    std::cout << "Form destructor called" << std::endl;
-}
-
-
-
 // GradeTooLowException's what() method
 // what() is part of the std::exception class and is used to get a description of the exception.
 // This description is the const char* that is being returned by what()
 // Returns a C-style string literal with exception message
 const char* Form::GradeTooHighException::what() const throw()
 {
-    return ("Grade too high");
+    return ("[EXCEPTION] Grade too high exception!");
 }
 
 // GradeTooLowException's what() method
@@ -87,9 +99,13 @@ const char* Form::GradeTooHighException::what() const throw()
 // Returns a C-style string literal with exception message
 const char* Form::GradeTooLowException::what() const throw()
 {
-    return ("Grade too low");
+    return ("[EXCEPTION] Grade too low exception!");
 }
 
+// FormNotSignedException's what() method
+// what() is part of the std::exception class and is used to get a description of the exception.
+// This description is the const char* that is being returned by what()
+// Returns a C-style string literal with exception message
 const char* Form::FormNotSignedException::what() const throw()
 {
     return ("Form not signed exception!");
@@ -102,6 +118,31 @@ std::ostream &operator<<(std::ostream &outputStream, Form const &src)
     return (outputStream);
 }
 
+
+// Default constructor for GradeTooHighException
+Form::GradeTooHighException::GradeTooHighException()
+{
+
+}
+
+// Default constructor for GradeTooLowException
+Form::GradeTooLowException::GradeTooLowException()
+{
+
+}
+
+// Default constructor for FormNotSignedException
+Form::FormNotSignedException::FormNotSignedException()
+{
+    // Add any required initialization code here
+}
+
+/*
+################################################################################
+Operator overload functions
+################################################################################
+*/
+
 // Overloaded assignment operator
 // rhs is a common naming convention in CPP.
 // 'this' is the object on the left of the '='
@@ -112,18 +153,6 @@ Form& Form::operator=(const Form& rhs)
        _isSigned = rhs._isSigned;
     }
     return *this;
-}
-
-
-
-// Default constructor for GradeTooHighException
-Form::GradeTooHighException::GradeTooHighException()
-{
-}
-
-// Default constructor for GradeTooLowException
-Form::GradeTooLowException::GradeTooLowException()
-{
 }
 
 // Increment grade
