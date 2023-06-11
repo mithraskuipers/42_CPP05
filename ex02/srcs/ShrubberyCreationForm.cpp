@@ -1,66 +1,86 @@
-#include "./../incs/AForm.hpp"
-#include "./../incs/Bureaucrat.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ShrubberyCreationForm.cpp                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/06/10 22:47:32 by mikuiper      #+#    #+#                 */
+/*   Updated: 2023/06/11 19:52:42 by mikuiper      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./../incs/ShrubberyCreationForm.hpp"
 
-// Normale constructor
-ShrubberyCreationForm::ShrubberyCreationForm(): AForm("formp_naampje", 145, 137), _target("target_naampje")
+// sign 145, exec 137
+
+/*
+################################################################################
+Orthodox canonical Formulier
+################################################################################
+*/
+
+ShrubberyCreationForm::ShrubberyCreationForm(void) : AForm("ShrubberyCreationForm", 145, 137), _target("default")
 {
-	std::ofstream myfile(this->_target + "_shrubbery");
-	myfile <<       "      /\\"    << std::endl;
-    myfile << "     /\\*\\"     << std::endl;
-   myfile << "    /\\O\\*\\"    << std::endl;
-   myfile << "   /*/\\/\\/\\"   << std::endl;
-  myfile << "  /\\O\\/\\*\\/\\"  << std::endl;
- myfile << " /\\*\\/\\*\\/\\/\\" << std::endl;
-myfile << "/\\O\\/\\/*/\\/O/\\" << std::endl;
-      myfile << "      ||"      << std::endl;
-      myfile <<"      ||"      << std::endl;
-      myfile <<"      ||"  << std::endl;
-	
-    std::cout << "ShrubberyCreationForm default constructor called" << std::endl;
 }
 
-// Parameterized constructor
-// geef target string als argument mee, overschrijf private target via _target(target)
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm("form_naampje", 145, 137), _target(target)
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("ShrubberyCreationForm", 145, 137), _target(target)
 {
-	std::ofstream myfile(this->_target + "_shrubbery");
-	myfile <<       "      /\\"    << std::endl;
-    myfile << "     /\\*\\"     << std::endl;
-   myfile << "    /\\O\\*\\"    << std::endl;
-   myfile << "   /*/\\/\\/\\"   << std::endl;
-  myfile << "  /\\O\\/\\*\\/\\"  << std::endl;
- myfile << " /\\*\\/\\*\\/\\/\\" << std::endl;
-myfile << "/\\O\\/\\/*/\\/O/\\" << std::endl;
-      myfile << "      ||"      << std::endl;
-      myfile <<"      ||"      << std::endl;
-      myfile <<"      ||"  << std::endl;
-	
-    std::cout << "ShrubberyCreationForm default constructor called" << std::endl;
+
+}
+
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &src) : AForm(src), _target(src._target)
+{
+
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
-{
-	std::cout << "ShrubberyCreationForm destructor called" << std::endl;
+{   
 }
 
-// Copy constructor
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &orig): AForm("ShrubberyCreationForm", 25, 3), _target(orig.getTarget())
+ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& other)
 {
-	std::cout << "ShrubberyCreationForm copy constructor called" << std::endl;
+    if (this != &other)
+    {
+        AForm::operator=(other);
+    }
+    return (*this);
 }
 
-std::string ShrubberyCreationForm::getTarget(void) const
+/*
+################################################################################
+Public member functions
+################################################################################
+*/
+
+void ShrubberyCreationForm::execute(const Bureaucrat &person) const
 {
-    return (this->_target);
+    AForm::execute(person);
+    std::ofstream file;
+    file.exceptions(std::ofstream::failbit | std::ofstream::badbit);
+    std::string filename = this->_target + "_shrubbery";
+    file.open(filename.c_str());
+    if (file.fail())
+        throw FileNotOpenException();
+    file << "      /\\      " << std::endl;
+    file << "     /  \\     " << std::endl;
+    file << "    /    \\    " << std::endl;
+    file << "   /______\\   " << std::endl;
+    file << "      ||       " << std::endl;
+    file << "      ||       " << std::endl;
+    file << "      ||       " << std::endl;
+    file.close();
 }
 
-void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
-{
-    if (this->getIsSigned() == false)
-        throw AForm::FormNotSignedException();
-    else if (executor.getGrade() > this->getExecGrade())
-        throw AForm::GradeTooLowException();
-    else
-        std::cout << this->getTarget() << " has been pardoned by Eternal Emperor Mithras" << std::endl;
+/*
+################################################################################
+Custom exception classes derived from the standard std::exception class
+Used to get more specific information about the type of error that occurred.
+################################################################################
+*/
+
+ShrubberyCreationForm::FileNotOpenException::FileNotOpenException() {}
+
+const char* ShrubberyCreationForm::FileNotOpenException::what() const throw() {
+    return "FileNotOpenException: File could not be opened.";
 }

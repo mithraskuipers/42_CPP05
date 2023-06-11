@@ -1,19 +1,30 @@
-#include "./../incs/AForm.hpp"
-#include "./../incs/Bureaucrat.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   RobotomyRequestForm.hpp                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/06/11 17:53:56 by mikuiper      #+#    #+#                 */
+/*   Updated: 2023/06/11 18:45:38 by mikuiper      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
-class Bureaucrat;
-class AForm;
+#include "AForm.hpp"
+#include <fstream>
+#include <cstdlib>
 
-class RobotomyRequestForm: public AForm
+class RobotomyRequestForm : public AForm
 {
     public:
-        RobotomyRequestForm();
-        RobotomyRequestForm(std::string targetName);
-        RobotomyRequestForm(RobotomyRequestForm const &orig);	// Copy constructor
-        RobotomyRequestForm &operator=(const RobotomyRequestForm &rhs);	// Assignment operator overloading
-        ~RobotomyRequestForm();
-        virtual void execute(Bureaucrat const &executor)const;
-        std::string getTarget(void) const;
+        /* Orthodox canonical form */
+        RobotomyRequestForm(void);
+        RobotomyRequestForm(const RobotomyRequestForm& other);
+        RobotomyRequestForm(const std::string &target);
+        ~RobotomyRequestForm(void);
+        RobotomyRequestForm& operator=(const RobotomyRequestForm& other);
+        /* Public member functions */
+        void execute(const Bureaucrat &person) const;
     private:
-        std::string _target;
+        const std::string _target;
 };

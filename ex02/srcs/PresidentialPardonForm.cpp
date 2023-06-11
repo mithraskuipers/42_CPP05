@@ -1,42 +1,60 @@
-#include "./../incs/AForm.hpp"
-#include "./../incs/Bureaucrat.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   PresidentialPardonForm.cpp                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/06/11 19:50:15 by mikuiper      #+#    #+#                 */
+/*   Updated: 2023/06/11 22:45:57 by mikuiper      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./../incs/PresidentialPardonForm.hpp"
 
-// Normale constructor
-PresidentialPardonForm::PresidentialPardonForm(): AForm("formp_naampje", 25, 3), _target("target_naampje")
+// sign 25, exec 5
+
+/*
+################################################################################
+Orthodox canonical Formulier
+################################################################################
+*/
+
+PresidentialPardonForm::PresidentialPardonForm(void) : AForm("PresidentialPardonForm", 25, 5), _target("default")
 {
-    std::cout << "PresidentialPardonForm default constructor called" << std::endl;
 }
 
-// Parameterized constructor
-// geef target string als argument mee, overschrijf private target via _target(target)
-PresidentialPardonForm::PresidentialPardonForm(std::string target): AForm("form_naampje", 25, 3), _target(target)
+PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : AForm("PresidentialPardonForm", 25, 5), _target(target)
 {
-    std::cout << "PresidentialPardonForm default constructor called" << std::endl;
+
+}
+
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &src) : AForm(src), _target(src._target)
+{
+
 }
 
 PresidentialPardonForm::~PresidentialPardonForm()
-{
-	std::cout << "PresidentialPardonForm destructor called" << std::endl;
+{   
 }
 
-// Copy constructor
-PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const &orig): AForm("PresidentialPardonForm", 25, 3), _target(orig.getTarget())
+PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm& other)
 {
-	std::cout << "PresidentialPardonForm copy constructor called" << std::endl;
+    if (this != &other)
+    {
+        AForm::operator=(other);
+    }
+    return (*this);
 }
 
-std::string PresidentialPardonForm::getTarget(void) const
-{
-    return (this->_target);
-}
+/*
+################################################################################
+Public member functions
+################################################################################
+*/
 
-void PresidentialPardonForm::execute(Bureaucrat const & executor) const
+void PresidentialPardonForm::execute(const Bureaucrat &person) const
 {
-    if (this->getIsSigned() == false)
-        throw AForm::FormNotSignedException();
-    else if (executor.getGrade() > this->getExecGrade())
-        throw AForm::GradeTooLowException();
-    else
-        std::cout << this->getTarget() << " has been pardoned by Eternal Emperor Mithras" << std::endl;
+    AForm::execute(person);
+    std::cout << this->_target << " has been pardoned by Zaphod Beeblebrox" << std::endl;
 }

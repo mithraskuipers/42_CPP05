@@ -1,19 +1,30 @@
-#include "./../incs/AForm.hpp"
-#include "./../incs/Bureaucrat.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   PresidentialPardonForm.hpp                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/06/11 19:50:20 by mikuiper      #+#    #+#                 */
+/*   Updated: 2023/06/11 19:56:11 by mikuiper      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
-class Bureaucrat;
-class AForm;
+#include "AForm.hpp"
+#include <fstream>
+#include <cstdlib>
 
-class PresidentialPardonForm: public AForm
+class PresidentialPardonForm : public AForm
 {
     public:
-        PresidentialPardonForm();
-        PresidentialPardonForm(std::string targetName);
-        PresidentialPardonForm(PresidentialPardonForm const &orig);	// Copy constructor
-        PresidentialPardonForm &operator=(const PresidentialPardonForm &rhs);	// Assignment operator overloading
-        ~PresidentialPardonForm();
-        virtual void execute(Bureaucrat const &executor)const;
-        std::string getTarget(void) const;
+        /* Orthodox canonical form */
+        PresidentialPardonForm(void);
+        PresidentialPardonForm(const PresidentialPardonForm& other);
+        PresidentialPardonForm(const std::string &target);
+        ~PresidentialPardonForm(void);
+        PresidentialPardonForm& operator=(const PresidentialPardonForm& other);
+        /* Public member functions */
+        void execute(const Bureaucrat &person) const;
     private:
-        std::string _target;
+        const std::string _target;
 };

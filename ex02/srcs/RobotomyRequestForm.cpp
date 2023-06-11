@@ -1,45 +1,65 @@
-#include "./../incs/AForm.hpp"
-#include "./../incs/Bureaucrat.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   RobotomyRequestForm.cpp                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/06/11 17:54:01 by mikuiper      #+#    #+#                 */
+/*   Updated: 2023/06/11 19:08:18 by mikuiper      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./../incs/RobotomyRequestForm.hpp"
 
-// Normale constructor
-RobotomyRequestForm::RobotomyRequestForm(): AForm("formp_naampje", 72, 45), _target("target_naampje")
+// sign 72, exec 45
+
+/*
+################################################################################
+Orthodox canonical Formulier
+################################################################################
+*/
+
+RobotomyRequestForm::RobotomyRequestForm(void) : AForm("RobotomyRequestForm", 72, 45), _target("default")
 {
-    std::cout << "RobotomyRequestForm default constructor called" << std::endl;
 }
 
-// Parameterized constructor
-// geef target string als argument mee, overschrijf private target via _target(target)
-RobotomyRequestForm::RobotomyRequestForm(std::string target): AForm("form_naampje", 72, 45), _target(target)
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : AForm("RobotomyRequestForm", 72, 45), _target(target)
 {
-    std::cout << "RobotomyRequestForm default constructor called" << std::endl;
+
+}
+
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &src) : AForm(src), _target(src._target)
+{
+
 }
 
 RobotomyRequestForm::~RobotomyRequestForm()
-{
-	std::cout << "RobotomyRequestForm destructor called" << std::endl;
+{   
 }
 
-// Copy constructor
-RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &orig): AForm("RobotomyRequestForm", 25, 3), _target(orig.getTarget())
+RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& other)
 {
-	std::cout << "RobotomyRequestForm copy constructor called" << std::endl;
+    if (this != &other)
+    {
+        AForm::operator=(other);
+    }
+    return (*this);
 }
 
-std::string RobotomyRequestForm::getTarget(void) const
-{
-    return (this->_target);
-}
+/*
+################################################################################
+Public member functions
+################################################################################
+*/
 
-void RobotomyRequestForm::execute(Bureaucrat const & executor) const
+void RobotomyRequestForm::execute(const Bureaucrat &person) const
 {
-	srand (time(NULL));
-    if (this->getIsSigned() == false)
-        throw AForm::FormNotSignedException();
-    else if (executor.getGrade() > this->getExecGrade())
-        throw AForm::GradeTooLowException();
-    else if (rand() % 2 == 0)
-        std::cout << this->getTarget() << " has been robotomized" << std::endl;
-	else
-		std::cout << this->getTarget() << " robotimizing has failed" << std::endl;
+    AForm::execute(person);
+    std::cout << "RRRRRRRRRRRRRRRRRRRRRR" << std::endl;
+    int random_number = rand();
+    if (random_number % 2 == 0)
+        std::cout << this->_target << " has been robotimized successfully!" << std::endl;
+    else
+        std::cout << this->_target << " has not been robotimized. Failure." << std::endl;	
 }
