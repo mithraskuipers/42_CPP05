@@ -1,5 +1,5 @@
 # Executable name
-NAME = cpp05_ex00
+NAME = cpp05_ex03
 
 # Compiler and flags
 CC = c++
@@ -17,8 +17,8 @@ HDR_DIR = incs/
 OBJ_DIR = objs/
 
 # Source, object, and header files
-SRC_FILES = main.cpp Bureaucrat.cpp
-HDR_FILES = Bureaucrat.hpp
+SRC_FILES = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp Intern.cpp
+HDR_FILES = Bureaucrat.hpp AForm.hpp ShrubberyCreationForm.hpp RobotomyRequestForm.hpp PresidentialPardonForm.hpp Intern.hpp
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
 # Paths for source, object, and header files
@@ -47,6 +47,7 @@ clean:
 	else \
 		echo "No object files to delete.."; \
 	fi;
+	@find . -type f -name '*_shrubbery' -delete
 
 fclean: clean
 	@if [ -f "$(NAME)" ]; then \

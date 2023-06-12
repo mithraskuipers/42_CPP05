@@ -47,6 +47,7 @@ clean:
 	else \
 		echo "No object files to delete.."; \
 	fi;
+	@find . -type f -name '*_shrubbery' -delete
 
 fclean: clean
 	@if [ -f "$(NAME)" ]; then \

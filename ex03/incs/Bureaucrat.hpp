@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/06/10 20:26:57 by mikuiper      #+#    #+#                 */
-/*   Updated: 2023/06/10 20:26:59 by mikuiper      ########   odam.nl         */
+/*   Created: 2023/06/10 20:26:47 by mikuiper      #+#    #+#                 */
+/*   Updated: 2023/06/11 19:56:16 by mikuiper      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 
 #include <iostream>
 #include <exception>
+#include "AForm.hpp"
+
+class AForm;
 
 class Bureaucrat
 {
     public:
-       /* Orthodox canonical form */
+        /* Orthodox canonical form */
         Bureaucrat();
         Bureaucrat(std::string const &name, int grade);
         Bureaucrat(Bureaucrat const &src);
@@ -30,8 +33,10 @@ class Bureaucrat
         int getGrade() const;							// Getter function for _grade. const so that it won't chage member variables of Bureaucrat object 
         void incrementGrade();
         void decrementGrade();
+        void signForm(AForm &Formulier);
         class GradeTooHighException; 					// GradeTooHighException nested class declaration
         class GradeTooLowException;	 					// GradeTooLowException nested class declaration
+        void executeAForm(const AForm & form) const;
     private:
         std::string const _name;						// private name of the Bureaucrat
         int _grade;										// private grade of the Bureaucrat

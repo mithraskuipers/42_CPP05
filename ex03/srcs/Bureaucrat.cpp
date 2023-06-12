@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/06/10 20:26:54 by mikuiper      #+#    #+#                 */
-/*   Updated: 2023/06/10 20:26:54 by mikuiper      ########   odam.nl         */
+/*   Created: 2023/06/10 20:26:39 by mikuiper      #+#    #+#                 */
+/*   Updated: 2023/06/11 17:59:09 by mikuiper      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ################################################################################
-Orthodox canonical form
+Orthodox canonical Formulier
 ################################################################################
 */
 
@@ -43,7 +43,6 @@ Bureaucrat::Bureaucrat(Bureaucrat const & src) : _name(src._name), _grade(src._g
     std::cout << "Bureaucrat copy constructor called" << std::endl;
 }
 
-// Destructor
 Bureaucrat::~Bureaucrat()
 {
     std::cout << "Bureaucrat destructor called" << std::endl;
@@ -81,13 +80,18 @@ int Bureaucrat::getGrade() const
     return (_grade);
 }
 
+void Bureaucrat::signForm(AForm &Formulier)
+{
+    Formulier.beSigned(*this);
+}
+
 // GradeTooLowException's what() method
 // what() is part of the std::exception class and is used to get a description of the exception.
 // This description is the const char* that is being returned by what()
 // Returns a C-style string literal with exception message
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-    return ("[EXCEPTION] Grade too high exception!"); // 
+    return ("[EXCEPTION] Grade too high exception!"); //
 }
 
 // GradeTooLowException's what() method
@@ -96,13 +100,7 @@ const char* Bureaucrat::GradeTooHighException::what() const throw()
 // Returns a C-style string literal with exception message
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-    return ("[EXCEPTION] Grade too low exception!"); // 
-}
-
-// Default constructor for GradeTooLowException
-Bureaucrat::GradeTooLowException::GradeTooLowException()
-{
-
+    return ("[EXCEPTION] Grade too low exception!"); //
 }
 
 // Default constructor for GradeTooHighException
@@ -111,10 +109,16 @@ Bureaucrat::GradeTooHighException::GradeTooHighException()
 
 }
 
+// Default constructor for GradeTooLowException
+Bureaucrat::GradeTooLowException::GradeTooLowException()
+{
+
+}
+
 // Increment grade
 void Bureaucrat::incrementGrade()
 {
-        std::cout << "[" << this->_name << "]" << "[grade] Attempting to increment grade. Its grade is currently " << this->_grade << "." << std::endl;
+    std::cout << "[" << this->_name << "]" << "[grade] Attempting to increment grade. Its grade is currently " << this->_grade << "." << std::endl;
     int grade = this->_grade;
     if (grade <= 1)
     {
@@ -127,7 +131,7 @@ void Bureaucrat::incrementGrade()
 // Decrement grade
 void Bureaucrat::decrementGrade()
 {
-        std::cout << "[" << this->_name << "]" << "[grade] Attempting to decrement grade. Its grade is currently " << this->_grade << "." << std::endl;
+    std::cout << "[" << this->_name << "]" << "[grade] Attempting to decrement grade. Its grade is currently " << this->_grade << "." << std::endl;
     int grade = this->_grade;
     if (grade >= 150)
     {
@@ -136,6 +140,12 @@ void Bureaucrat::decrementGrade()
     }
     this->_grade = grade + 1;
         std::cout << "[" << this->_name << "]" << "[grade] Succesfully decremented grade. Its grade is now " << this->_grade << "." << std::endl;
+}
+
+void Bureaucrat::executeAForm(const AForm & form) const
+{
+	form.execute(*this);
+	std::cout << this->_name + " executed " + form.getName() << std::endl;
 }
 
 /*
