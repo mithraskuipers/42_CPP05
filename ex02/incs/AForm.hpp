@@ -6,7 +6,7 @@
 /*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/10 20:26:45 by mikuiper      #+#    #+#                 */
-/*   Updated: 2023/06/11 19:56:44 by mikuiper      ########   odam.nl         */
+/*   Updated: 2023/06/14 16:31:00 by mikuiper      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class AForm
         AForm(const std::string name, int reqSignGrade, int reqExeGrade);
         AForm(const AForm &orig);
         AForm& operator=(const AForm&);
-        ~AForm();
+		virtual ~AForm() = 0;
         /* Public member functions */
         void beSigned(Bureaucrat &signee);
         virtual void execute(const Bureaucrat &executor) const = 0;
