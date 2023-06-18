@@ -6,7 +6,7 @@
 /*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/10 20:26:45 by mikuiper      #+#    #+#                 */
-/*   Updated: 2023/06/10 20:26:46 by mikuiper      ########   odam.nl         */
+/*   Updated: 2023/06/18 19:33:10 by mikuiper      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ class Form
         class       FormNotSignedException;
     private:
         std::string _name;
-        int         _isSigned;
+        bool         _isSigned;
         int const   _reqSignGrade;
         int const   _reqExeGrade;
 };
